@@ -1,0 +1,71 @@
+<?php
+
+declare(strict_types=1);
+/**
+ * This file is part of hyperf-ext/notifications.
+ *
+ * @link     https://github.com/hyperf-ext/notifications
+ * @contact  eric@zhu.email
+ * @license  https://github.com/hyperf-ext/notifications/blob/master/LICENSE
+ */
+namespace %NAMESPACE%;
+
+use HyperfExt\Notifications\Channels\MailChannel;
+use HyperfExt\Contract\ShouldQueue;
+use HyperfExt\Notifications\Messages\MailMessage;
+use HyperfExt\Notifications\Contracts\Notification;
+
+class %CLASS% extends Notification implements ShouldQueue
+{
+    /**
+     * @var string
+     */
+    public $queue = 'default';
+
+    /**
+     * @var int
+     */
+    public $delay = 0;
+
+    /**
+     * Create a new notification instance.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return string[]
+     */
+    public function via($notifiable): array
+    {
+        return [MailChannel::class];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     */
+    public function toMail($notifiable): MailMessage
+    {
+        return (new MailMessage)
+            ->textBody('Thank you for using our application!');
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     */
+    public function toArray($notifiable): array
+    {
+        return [
+            //
+        ];
+    }
+}

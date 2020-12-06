@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+/**
+ * This file is part of hyperf-ext/notifications.
+ *
+ * @link     https://github.com/hyperf-ext/notifications
+ * @contact  eric@zhu.email
+ * @license  https://github.com/hyperf-ext/notifications/blob/master/LICENSE
+ */
+use Hyperf\Database\Migrations\Migration;
+use Hyperf\Database\Schema\Blueprint;
+use Hyperf\Database\Schema\Schema;
+
+class CreateNotificationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('notifications');
+    }
+}
